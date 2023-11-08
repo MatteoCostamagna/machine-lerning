@@ -35,7 +35,7 @@ cursor.close()
 conn.close()
 
 
-df_vino = pd.read_csv('https://github.com/MatteoCostamagna/machine-lerning/blob/main/cartella_progetto/cartella_training/vino.csv', sep=';', encoding='latin1')
+df_vino = pd.read_csv('https://raw.githubusercontent.com/MatteoCostamagna/machine-lerning/blob/main/cartella_progetto/cartella_training/vino.csv', sep=';', encoding='latin1')
 
 print(df_vino)
 
