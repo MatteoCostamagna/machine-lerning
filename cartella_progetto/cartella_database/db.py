@@ -7,7 +7,6 @@ conn = sqlite3.connect('database.db')
 # Creazione di un cursore per eseguire comandi SQL
 cursor = conn.cursor()
 
-conn.execute('DROP TABLE data;')
 
 # Creazione della tabella "vino_rosso"
 cursor.execute('''
