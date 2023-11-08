@@ -12,19 +12,19 @@ cursor = conn.cursor()
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS data (
         id INTEGER PRIMARY KEY,
-        fixed_acidity INTEGER,
-        volatile_acidity INTEGER,
-        citric_acid INTEGER,
-        residual_sugar INTEGER,
-        chlorides INTEGER,
-        free_sulfur_dioxide INTEGER, 
-        total_sulfur_dioxide INTEGER,
-        density INTEGER,
-        pH INTEGER,
-        sulphates INTEGER,
-        alcohol INTEGER,
+        fixed_acidity FLOAT,
+        volatile_acidity FLOAT,
+        citric_acid FLOAT,
+        residual_sugar FLOAT,
+        chlorides FLOAT,
+        free_sulfur_dioxide FLOAT,
+        density FLOAT,
+        pH FLOAT,
+        sulphates FLOAT,
+        alcohol FLOAT,
         quality INTEGER,
-        red_or_white INTEGER
+        tow INTEGER,
+        best_quality INTEGER
     )
 ''')
 
@@ -35,14 +35,12 @@ cursor.close()
 conn.close()
 
 
-df_vino_rosso = pd.read_csv('https://raw.githubusercontent.com/FabioGagliardiIts/datasets/main/wine_quality/winequality-red.csv', sep=';', encoding='latin1')
-df_vino_bianco = pd.read_csv('https://raw.githubusercontent.com/FabioGagliardiIts/datasets/main/wine_quality/winequality-red.csv', sep=';', encoding='latin1')
+df_vino = pd.read_csv('https://github.com/MatteoCostamagna/machine-lerning/blob/main/cartella_progetto/cartella_training/vino.csv', sep=';', encoding='latin1')
 
-print(df_vino_bianco)
-print(df_vino_rosso)
+print(df_vino)
 
 
 
 conn = sqlite3.connect('database.db')
-df_vino_bianco.to_sql('data', conn, if_exists='replace', index=False)
+df_vino.to_sql('data', conn, if_exists='replace', index=False)
 
