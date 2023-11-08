@@ -7,6 +7,7 @@ conn = sqlite3.connect('database.db')
 # Creazione di un cursore per eseguire comandi SQL
 cursor = conn.cursor()
 
+conn.execute('DROP TABLE data;')
 
 # Creazione della tabella "vino_rosso"
 cursor.execute('''
@@ -35,7 +36,7 @@ cursor.close()
 conn.close()
 
 
-df_vino = pd.read_csv('https://raw.githubusercontent.com/MatteoCostamagna/machine-lerning/blob/main/cartella_progetto/cartella_training/vino.csv', sep=';', encoding='latin1')
+df_vino = pd.read_csv('https://raw.githubusercontent.com/MatteoCostamagna/machine-lerning/main/cartella_progetto/cartella_training/vino.csv', sep=',', encoding='latin1')
 
 print(df_vino)
 
