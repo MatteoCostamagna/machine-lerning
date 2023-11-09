@@ -11,6 +11,7 @@ cursor = conn.cursor()
 # Creazione della tabella "data" --> che contiene i dati del vino
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS data (
+        id INTEGER
         fixed_acidity FLOAT,
         volatile_acidity FLOAT,
         citric_acid FLOAT,
@@ -34,7 +35,7 @@ cursor.close()
 conn.close()
 
 #Ho letto il file dei vini che viene salvato nella cartella training
-df_vino = pd.read_csv('https://raw.githubusercontent.com/MatteoCostamagna/machine-lerning/main/cartella_progetto/cartella_training/vino.csv', sep=',', encoding='latin1')
+df_vino = pd.read_csv('https://raw.githubusercontent.com/MatteoCostamagna/machine-lerning/main/ai_ml_python_2022_2024_esame_Costamagna_Matteo/Training/vini.csv', sep=',', encoding='latin1')
 #print(df_vino)
 
 conn = sqlite3.connect('database.db')

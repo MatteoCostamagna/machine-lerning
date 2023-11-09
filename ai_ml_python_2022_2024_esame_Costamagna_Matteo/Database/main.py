@@ -1,3 +1,7 @@
+# uvicorn Database.main:app --reload --> x avviare le api
+# http://127.0.0.1:8000/docs. Swagger
+
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import sqlite3
