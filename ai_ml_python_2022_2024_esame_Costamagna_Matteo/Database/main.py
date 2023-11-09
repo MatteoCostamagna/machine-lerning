@@ -4,6 +4,7 @@ import sqlite3
  
 app = FastAPI()
 
+#Ho creato una classe utile per le api
 class Data(BaseModel):
     fixed_acidity:float 
     volatile_acidity:float 
