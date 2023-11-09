@@ -32,10 +32,10 @@ def read_data_by_quality(quality:int):
  conn.close()
  return result
 
-def read_data_by_regione(regione:str):
+def read_data_by_type(type:int):
  conn = sqlite3.connect('database.db')
  cursor = conn.cursor()
- cursor.execute("SELECT * FROM data where regione= ?",(regione,))
+ cursor.execute("SELECT * FROM data where type= ?",(type,))
  result = cursor.fetchall()
  conn.commit()
  conn.close()

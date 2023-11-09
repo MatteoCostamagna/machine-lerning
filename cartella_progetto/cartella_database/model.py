@@ -2,16 +2,16 @@ from pydantic import BaseModel
 
 class Data(BaseModel):
     id: int
-    fixed_acidity:int 
-    volatile_acidity:int 
-    citric_acid:int 
-    residual_sugar:int 
-    chlorides:int 
-    free_sulfur_dioxide:int 
-    total_sulfur_dioxide:int 
-    density:int 
-    pH:int 
-    sulphates:int 
-    alcohol:int 
+    fixed_acidity:float 
+    volatile_acidity:float 
+    citric_acid:float 
+    residual_sugar:float 
+    chlorides:float 
+    free_sulfur_dioxide:float 
+    density:float 
+    pH:float 
+    sulphates:float 
+    alcohol:float 
     quality:int
-    red_or_white:int
+    tow:int
+    best_quality:int

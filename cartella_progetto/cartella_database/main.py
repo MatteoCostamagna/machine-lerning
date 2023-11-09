@@ -1,48 +1,100 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from crud import *
+import sqlite3
  
 app = FastAPI()
 
-#create
+class Data(BaseModel):
+    fixed_acidity:float 
+    volatile_acidity:float 
+    citric_acid:float 
+    residual_sugar:float 
+    chlorides:float 
+    free_sulfur_dioxide:float 
+    density:float 
+    pH:float 
+    sulphates:float 
+    alcohol:float 
+    quality:int
+    tow: int 
+    best_quality:int
+
+
+#create 
 
 @app.post("/data")
 def create_data(data : Data):
-    data_id = create_data(data)
-    return {"id": data_id, **data.model_dump()}
+  conn = sqlite3.connect('database.db')
+  cursor = conn.cursor()
+  cursor.execute("INSERT INTO data (fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,free_sulfur_dioxide, density, pH, sulphates, alcohol, quality, tow, best_quality)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides,data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.best_quality))
+  result = cursor.fetchall()
+  conn.commit()
+  conn.close()
+  return {"message": "Wine successfully created"}
 
 #read
 
 @app.get("/data")
 def read_all_datas():
-   return read_all_datas()
+  conn = sqlite3.connect('database.db')
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM data")
+  result = cursor.fetchall()
+  conn.commit()
+  conn.close()
+  return result
 
-@app.get("/data/{regione}")
-def data_by_regione(regione: str):
-  return read_data_by_regione(regione)
+@app.get("/data/{quality}")
+def data_by_quality(quality: int):
+  conn = sqlite3.connect('database.db')
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM data WHERE quality = ?",(quality,))
+  result = cursor.fetchall()
+  conn.commit()
+  conn.close()
+  return result
 
-@app.get("/data/{anno}")
-def data_by_anno(anno: int):
-  return read_data_by_anno(anno)
+@app.get("/data/{tow}")
+def data_by_tow(tow: int):
+  conn = sqlite3.connect('database.db')
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM data WHERE tow = ?",(tow,))
+  result = cursor.fetchall()
+  conn.commit()
+  conn.close()
+  return result
 
 #update
 
-"""
-@app.post("/data")
+@app.put("/data")
 def create_data(data : Data):
-    data_id = create_data(data)
-    return {"id": data_id, **data.model_dump()}
+  conn = sqlite3.connect('database.db')
+  cursor = conn.cursor()
+  cursor.execute("UPDATE wine SET fixed_acidity=?, volatile_acidity=?, citric_acid=?, residual_sugar=?, chlorides=?, free_sulfur_dioxide=?, density=?, pH=?, sulphates=?, alcohol=?, quality=?, type=?, best_quality=? WHERE fixed_acidity=? AND volatile_acidity=? AND citric_acid=? AND residual_sugar=? AND chlorides=? AND free_sulfur_dioxide=? AND density=? AND pH=? AND sulphates=? AND alcohol=? AND quality=? AND type=? AND best_quality=?", (data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides, data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.type, data.best_quality, data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides, data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.best_quality))
+  conn.commit()
+  conn.close()
+  return {}
 
-"""
 
 #delete
 
 @app.delete("/data")
 def delete_data_all(data : Data):
-    data_id = delete_data(data)
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("DELETE * FROM data")
+    conn.commit()
+    conn.close()
     return {}
 
+"""
 @app.delete("/data/{id}")
 def delete_data_byid(id: int):
-    data_id = delete_data_by_id(id)
-    return {"id" : data_id}
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM data where id= ?",(id,))
+    conn.commit()
+    conn.close()
+    return {}
+  
+"""

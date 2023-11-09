@@ -11,7 +11,6 @@ cursor = conn.cursor()
 # Creazione della tabella "vino_rosso"
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS data (
-        id INTEGER PRIMARY KEY,
         fixed_acidity FLOAT,
         volatile_acidity FLOAT,
         citric_acid FLOAT,
