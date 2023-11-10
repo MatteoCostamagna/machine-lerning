@@ -1,3 +1,6 @@
+# uvicorn Modello_ml.api:app --reload --> x avviare le api
+# http://127.0.0.1:8000/docs. Swagger
+
 import numpy as np
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
@@ -15,7 +18,7 @@ class WineQualityPredictionInput(BaseModel):
     pH: float
     sulphates: float
     alcohol: float
-    quality: int
+
 
 # Ho caricato il training model
 model = pickle.load(open(r"C:\Users\ICTS22-24.459\Desktop\cartella_progetto\cartella_modello_ml\il_mio_modello.pkl", "rb"))

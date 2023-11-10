@@ -22,7 +22,7 @@ class Data(BaseModel):
     alcohol:float 
     quality:int
     tow: int 
-    best_quality:int
+    top_quality:int
 
 
 #create 
@@ -31,7 +31,7 @@ class Data(BaseModel):
 def create_data(data : Data):
   conn = sqlite3.connect('database.db')
   cursor = conn.cursor()
-  cursor.execute("INSERT INTO data (fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,free_sulfur_dioxide, density, pH, sulphates, alcohol, quality, tow, best_quality)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides,data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.best_quality))
+  cursor.execute("INSERT INTO data (fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,free_sulfur_dioxide, density, pH, sulphates, alcohol, quality, tow, top_quality)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides,data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.best_quality))
   result = cursor.fetchall()
   conn.commit()
   conn.close()
@@ -59,11 +59,11 @@ def data_by_quality(quality: int):
   conn.close()
   return result
 
-@app.get("/data/{tow}")
-def data_by_tow(tow: int):
+@app.get("/data/{alcohol}")
+def data_by_tow(alcohol: float):
   conn = sqlite3.connect('database.db')
   cursor = conn.cursor()
-  cursor.execute("SELECT * FROM data WHERE tow = ?",(tow,))
+  cursor.execute("SELECT * FROM data WHERE alcohol = ?",(alcohol,))
   result = cursor.fetchall()
   conn.commit()
   conn.close()
@@ -72,10 +72,10 @@ def data_by_tow(tow: int):
 #update
 
 @app.put("/data")
-def create_data(data : Data):
+def update_data(data : Data):
   conn = sqlite3.connect('database.db')
   cursor = conn.cursor()
-  cursor.execute("UPDATE wine SET fixed_acidity=?, volatile_acidity=?, citric_acid=?, residual_sugar=?, chlorides=?, free_sulfur_dioxide=?, density=?, pH=?, sulphates=?, alcohol=?, quality=?, type=?, best_quality=? WHERE fixed_acidity=? AND volatile_acidity=? AND citric_acid=? AND residual_sugar=? AND chlorides=? AND free_sulfur_dioxide=? AND density=? AND pH=? AND sulphates=? AND alcohol=? AND quality=? AND type=? AND best_quality=?", (data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides, data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.type, data.best_quality, data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides, data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.best_quality))
+  cursor.execute("UPDATE wine SET fixed_acidity=?, volatile_acidity=?, citric_acid=?, residual_sugar=?, chlorides=?, free_sulfur_dioxide=?, density=?, pH=?, sulphates=?, alcohol=?, quality=?, tow=?, top_quality=? WHERE fixed_acidity=? AND volatile_acidity=? AND citric_acid=? AND residual_sugar=? AND chlorides=? AND free_sulfur_dioxide=? AND density=? AND pH=? AND sulphates=? AND alcohol=? AND quality=? AND tow=? AND top_quality=?", (data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides, data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.top_quality, data.fixed_acidity, data.volatile_acidity, data.citric_acid, data.residual_sugar, data.chlorides, data.free_sulfur_dioxide, data.density, data.pH, data.sulphates, data.alcohol, data.quality, data.tow, data.top_quality))
   conn.commit()
   conn.close()
   return {}
