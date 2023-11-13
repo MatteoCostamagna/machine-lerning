@@ -1,6 +1,7 @@
 # uvicorn Modello_ml.api:app --reload --> x avviare le api
 # http://127.0.0.1:8000/docs. Swagger
 
+import pandas as pd
 import numpy as np
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
@@ -18,6 +19,7 @@ class WineQualityPredictionInput(BaseModel):
     pH: float
     sulphates: float
     alcohol: float
+    tow: int
 
 
 # Ho caricato il training model
@@ -28,7 +30,6 @@ app = FastAPI()
 #Ho creato l'api che prende i dati e fa una predizione grazie al modello
 @app.post("/predict")
 async def predict(request: Request, wine_quality_prediction_input: WineQualityPredictionInput):
-    data = await request.json()
     prediction = model.predict([wine_quality_prediction_input])
     return {"prediction": prediction}
 

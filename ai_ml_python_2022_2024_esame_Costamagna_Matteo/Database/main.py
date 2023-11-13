@@ -91,15 +91,3 @@ def delete_data_all(data : Data):
     conn.commit()
     conn.close()
     return {}
-
-"""
-@app.delete("/data/{id}")
-def delete_data_byid(id: int):
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM data where id= ?",(id,))
-    conn.commit()
-    conn.close()
-    return {}
-  
-"""
